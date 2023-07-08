@@ -1,0 +1,7 @@
+.main {
+    margin: 10px;
+}
+
+.header {
+    border-bottom: 1px solid var(--border-color);
+}
