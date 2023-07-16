@@ -1,6 +1,7 @@
 html {
-    --bg-color: #2c2c2c;
-    --bg-dark: #1f1f1f;
+    --bg-color: #2c2b3b;
+    --bg-dark: #181720;
+    --bg-light: #363549;
     --text-color: #dfdfdf;
     --border-color: var(--text-color);
 }
@@ -30,4 +31,18 @@ h5,
 h6 {
     display: inline-block;
     margin: 0;
+}
+
+button {
+    background: none;
+    background-color: var(--bg-dark);
+    border: 1px solid var(--border-color);
+    padding: 3px 6px 3px 6px;
+    color: var(--text-color);
+    border-radius: 4px;
+}
+
+button:hover {
+    background-color: var(--bg-light);
+    cursor: pointer;
 }
