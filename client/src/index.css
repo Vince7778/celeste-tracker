@@ -1,9 +1,11 @@
 html {
-    --bg-color: #2c2b3b;
-    --bg-dark: #181720;
-    --bg-light: #363549;
+    --bg-color: #3b312b;
+    --bg-dark: #201b17;
+    --bg-light: #494035;
     --text-color: #dfdfdf;
     --border-color: var(--text-color);
+    --link-color: #9182e6;
+    --link-visited-color: #8b4eda;
 }
 
 body {
@@ -45,4 +47,16 @@ button {
 button:hover {
     background-color: var(--bg-light);
     cursor: pointer;
+}
+
+a {
+    color: var(--link-color);
+}
+
+a:visited {
+    color: var(--link-visited-color);
+}
+
+a:visited.no-recolor {
+    color: var(--link-color);
 }

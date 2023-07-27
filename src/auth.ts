@@ -89,13 +89,14 @@ async function verify(
         callback(null, false, { message: FAILURE_MESSAGE });
         return;
     }
-    callback(null, accountDetails);
+    callback(null, { id, username });
 }
 
 export function setupPassport() {
     passport.use(new LocalStrategy(verify));
 
     passport.serializeUser((user: any, cb) => {
+        console.log(user);
         process.nextTick(() => {
             return cb(null, {
                 id: user.id,
@@ -212,6 +213,17 @@ export function passportRouter() {
             return next(err);
         }
         res.redirect("/");
+    });
+
+    // logout
+    router.post("/logout", (req, res, next) => {
+        req.logout((err) => {
+            if (err) {
+                console.log(err);
+                return next(err);
+            }
+            res.redirect("/");
+        });
     });
 
     return router;
