@@ -96,7 +96,6 @@ export function setupPassport() {
     passport.use(new LocalStrategy(verify));
 
     passport.serializeUser((user: any, cb) => {
-        console.log(user);
         process.nextTick(() => {
             return cb(null, {
                 id: user.id,

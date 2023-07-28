@@ -4,6 +4,7 @@ html {
     --bg-light: #494035;
     --text-color: #dfdfdf;
     --border-color: var(--text-color);
+    --border-color-dark: #7e7e7e;
     --link-color: #9182e6;
     --link-visited-color: #8b4eda;
 }
@@ -36,9 +37,12 @@ h6 {
 }
 
 button {
+    font: inherit;
+    cursor: pointer;
+    outline: inherit;
     background: none;
     background-color: var(--bg-dark);
-    border: 1px solid var(--border-color);
+    border: 1px solid var(--border-color-dark);
     padding: 3px 6px 3px 6px;
     color: var(--text-color);
     border-radius: 4px;

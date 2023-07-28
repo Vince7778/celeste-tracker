@@ -8,6 +8,7 @@ import { Main } from "./routes/main";
 import { Login } from "./routes/login";
 import { Signup } from "./routes/signup";
 import { UserProvider } from "./userContext";
+import { TestPage } from "./routes/testpage";
 
 const router = createBrowserRouter([
     {
@@ -25,6 +26,10 @@ const router = createBrowserRouter([
             {
                 path: "/signup",
                 element: <Signup />,
+            },
+            {
+                path: "/testpage",
+                element: <TestPage />,
             },
         ],
     },
