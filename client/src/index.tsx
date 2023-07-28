@@ -9,6 +9,7 @@ import { Login } from "./routes/login";
 import { Signup } from "./routes/signup";
 import { UserProvider } from "./userContext";
 import { TestPage } from "./routes/testpage";
+import { profileLoader, UserProfile } from "./routes/user";
 
 const router = createBrowserRouter([
     {
@@ -30,6 +31,11 @@ const router = createBrowserRouter([
             {
                 path: "/testpage",
                 element: <TestPage />,
+            },
+            {
+                path: "/user/:username",
+                element: <UserProfile />,
+                loader: profileLoader,
             },
         ],
     },

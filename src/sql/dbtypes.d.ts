@@ -7,5 +7,12 @@ interface SQLAccounts {
 interface SQLUsers {
     id: number;
     username: string;
-    creation_date: string?;
+    creation_date?: string;
+}
+
+// only publically available user info
+interface SQLUserProfile {
+    id: number;
+    username: string;
+    creation_date?: string;
 }

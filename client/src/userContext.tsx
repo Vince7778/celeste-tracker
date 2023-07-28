@@ -1,17 +1,28 @@
 import React from "react";
-import { getUserInfo } from "./api/user";
+import { getThisUser } from "./api/user";
 
-export const UserContext = React.createContext<APIUserInfo>(null);
+interface UserInfoContext {
+    userInfo?: APIUserInfo;
+    relogin: () => void;
+}
+
+export const UserContext = React.createContext<UserInfoContext>({
+    relogin: () => {
+        throw new Error("Relogin called before defined?");
+    },
+});
 
 export function UserProvider(props: React.PropsWithChildren) {
     const [userInfo, setUserInfo] = React.useState<APIUserInfo>(null);
 
-    React.useEffect(() => {
-        getUserInfo(setUserInfo);
-    }, []);
+    function relogin() {
+        getThisUser(setUserInfo);
+    }
+
+    React.useEffect(relogin, []);
 
     return (
-        <UserContext.Provider value={userInfo}>
+        <UserContext.Provider value={{ userInfo, relogin }}>
             {props.children}
         </UserContext.Provider>
     );

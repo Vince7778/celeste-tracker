@@ -5,8 +5,8 @@ html {
     --text-color: #dfdfdf;
     --border-color: var(--text-color);
     --border-color-dark: #7e7e7e;
-    --link-color: #9182e6;
-    --link-visited-color: #8b4eda;
+    --link-color: #6c80db;
+    --link-visited-color: #9d6cdd;
 }
 
 body {
@@ -63,4 +63,10 @@ a:visited {
 
 a:visited.no-recolor {
     color: var(--link-color);
+}
+
+/* Remove styles from link element */
+a.no-style {
+    text-decoration: none;
+    color: inherit;
 }

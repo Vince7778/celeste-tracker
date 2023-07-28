@@ -3,8 +3,6 @@
 -- If you make changes, make sure to write a migration script
 --   to migrate existing databases.
 
-PRAGMA user_version = 1;
-
 CREATE TABLE accounts (
     id INTEGER PRIMARY KEY AUTOINCREMENT,
     hashed_password BLOB,
@@ -16,3 +14,5 @@ CREATE TABLE users (
     username TEXT UNIQUE NOT NULL,
     creation_date TEXT
 );
+
+PRAGMA user_version = 1;

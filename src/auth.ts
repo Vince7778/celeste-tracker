@@ -221,7 +221,7 @@ export function passportRouter() {
                 console.log(err);
                 return next(err);
             }
-            res.redirect("/");
+            res.status(200).send("Logged out");
         });
     });
 

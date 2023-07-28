@@ -1,3 +1,4 @@
+import { Link } from "react-router-dom";
 import { UserDisplay } from "./UserDisplay";
 
 export function Header() {
@@ -10,7 +11,11 @@ export function Header() {
             }}
         >
             <div id="left-header">
-                <h1>Celeste Tracker</h1>
+                <h1>
+                    <Link to="/" className="no-style">
+                        Celeste Tracker
+                    </Link>
+                </h1>
             </div>
             <div
                 id="right-header"

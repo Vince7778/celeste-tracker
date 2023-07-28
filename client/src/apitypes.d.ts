@@ -9,3 +9,9 @@ interface APIUserInfoLoggedIn {
 }
 
 type APIUserInfo = APIUserInfoLoggedOut | APIUserInfoLoggedIn | null;
+
+interface APIUserProfile {
+    id: number;
+    username: string;
+    creation_date?: string;
+}
