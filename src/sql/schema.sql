@@ -35,7 +35,7 @@ CREATE TABLE user_roles (
 CREATE TABLE celeste_maps (
     id INTEGER PRIMARY KEY,
     name TEXT NOT NULL,
-    gb_mod_id TEXT NOT NULL -- mod id on GameBanana
+    gb_mod_id TEXT UNIQUE -- mod id on GameBanana
 );
 
 CREATE TABLE celeste_map_chapters (

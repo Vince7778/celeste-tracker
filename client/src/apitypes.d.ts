@@ -6,6 +6,7 @@ interface APIUserInfoLoggedIn {
     loggedIn: true;
     id: number;
     username: string;
+    roles: APIRole[];
 }
 
 type APIUserInfo = APIUserInfoLoggedOut | APIUserInfoLoggedIn | null;

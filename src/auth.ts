@@ -5,6 +5,7 @@ import crypto from "crypto";
 import { promisify } from "util";
 import express from "express";
 import { ISqlite } from "sqlite";
+import { getUserRoles } from "./database/users";
 
 interface UsernameID {
     id: string;
@@ -95,11 +96,13 @@ async function verify(
 export function setupPassport() {
     passport.use(new LocalStrategy(verify));
 
-    passport.serializeUser((user: any, cb) => {
+    passport.serializeUser(async (user: any, cb) => {
+        const roles = await getUserRoles(user.username);
         process.nextTick(() => {
             return cb(null, {
                 id: user.id,
                 username: user.username,
+                roles,
             });
         });
     });

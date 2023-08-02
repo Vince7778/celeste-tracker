@@ -14,6 +14,7 @@ router.get("/thisuser", (req, res) => {
         loggedIn: true,
         id: user.id,
         username: user.username,
+        roles: user.roles,
     });
 });
 
