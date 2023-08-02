@@ -14,4 +14,11 @@ interface APIUserProfile {
     id: number;
     username: string;
     creation_date?: string;
+    roles: APIRole[];
+}
+
+interface APIRole {
+    id: number;
+    name: string;
+    display_name?: string;
 }

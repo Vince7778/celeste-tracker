@@ -50,6 +50,13 @@ export function UserProfile() {
     const isThisUser =
         userInfo?.loggedIn && userInfo?.username === userProfile.username;
 
+    let rolesList = userProfile.roles
+        .map((role) => role.display_name ?? role.name)
+        .join(", ");
+    if (rolesList === "") {
+        rolesList = "None";
+    }
+
     return (
         <div>
             <h1>{userProfile.username}</h1>
@@ -60,6 +67,7 @@ export function UserProfile() {
                 </div>
             )}
             {isThisUser && <div>This is you!</div>}
+            <div>Roles: {rolesList}</div>
         </div>
     );
 }

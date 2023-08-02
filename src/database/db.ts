@@ -3,6 +3,7 @@ import path from "path";
 import { open, Database } from "sqlite";
 import sqlite3 from "sqlite3";
 import versionJson from "../sql/version.json";
+import crypto from "crypto";
 
 const SCHEMA_PATH = "src/sql/schema.sql";
 
@@ -11,14 +12,16 @@ let db: Database | null;
 async function loadDatabase() {
     const dbPath = process.env.DATABASE_FILE;
     if (!dbPath) throw new Error(".env does not have key DATABASE_FILE");
+
+    let curdb: Database;
     if (fs.existsSync(dbPath)) {
-        const db = await open({
+        curdb = await open({
             filename: dbPath,
             driver: sqlite3.Database,
         });
 
         // version check
-        const version = (await db.get("PRAGMA user_version"))
+        const version = (await curdb.get("PRAGMA user_version"))
             .user_version as number;
         if (version !== versionJson.version) {
             throw new Error(
@@ -26,9 +29,10 @@ async function loadDatabase() {
             );
         }
 
-        return db;
+        // enable foreign keys
+        await curdb.exec("PRAGMA foreign_keys = ON");
     } else {
-        const db = await open({
+        curdb = await open({
             filename: dbPath,
             driver: sqlite3.Database,
         });
@@ -42,11 +46,48 @@ async function loadDatabase() {
             throw e;
         }
 
-        await db.exec(schema.toString());
+        await curdb.exec(schema.toString());
 
         console.log("Schema loaded");
-        return db;
+
+        // create admin user
+        // hackers, if there's a vulnerability, it's probably here :)
+        const adminPW = process.env.DEFAULT_ADMIN_PASSWORD;
+        if (!adminPW)
+            throw new Error(".env does not have key DEFAULT_ADMIN_PASSWORD");
+
+        const salt = crypto.randomBytes(16);
+        const runResult = await curdb.run(
+            "INSERT INTO accounts(hashed_password, salt) VALUES (?, ?)",
+            [crypto.pbkdf2Sync(adminPW, salt, 310000, 32, "sha256"), salt],
+        );
+
+        const rowid = runResult.lastID;
+        if (!rowid) {
+            throw new Error(
+                "Admin user creation did not succeed? Row ID missing",
+            );
+        }
+        await curdb.run(
+            "INSERT INTO users(id, username, creation_date) VALUES (?, ?, ?)",
+            [rowid, "admin", new Date().toISOString()],
+        );
+
+        // give admin role
+        const adminRoleID = await curdb.get<Partial<SQLRoles>>(
+            "SELECT id FROM roles WHERE name = 'admin'",
+        );
+        if (!adminRoleID || !adminRoleID.id)
+            throw new Error("Admin role not found");
+        await curdb.run(
+            "INSERT INTO user_roles(user_id, role_id) VALUES (?, ?)",
+            [rowid, adminRoleID.id],
+        );
+
+        console.log("Admin user created");
     }
+
+    return curdb;
 }
 
 export async function setupDatabase() {

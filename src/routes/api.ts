@@ -1,5 +1,6 @@
 import { Router } from "express";
 import { getUserProfile } from "../database/users";
+import { getMapList } from "../database/maps";
 
 const router = Router();
 
@@ -28,6 +29,12 @@ router.get("/userinfo", async (req, res) => {
     }
 
     return res.json(userProfile);
+});
+
+router.get("/maplist", async (req, res) => {
+    const mapList = await getMapList();
+
+    return res.json(mapList);
 });
 
 export function getAPIRouter() {

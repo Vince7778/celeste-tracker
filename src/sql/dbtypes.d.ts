@@ -10,9 +10,8 @@ interface SQLUsers {
     creation_date?: string;
 }
 
-// only publically available user info
-interface SQLUserProfile {
+interface SQLRoles {
     id: number;
-    username: string;
-    creation_date?: string;
+    name: string;
+    display_name?: string;
 }
