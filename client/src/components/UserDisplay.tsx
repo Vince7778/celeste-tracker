@@ -37,7 +37,7 @@ export function UserDisplay() {
             buttons={[
                 {
                     label: "Profile",
-                    action: () => navigate(`/user/${user.username}`),
+                    action: () => navigate(`/users/${user.username}`),
                 },
                 {
                     label: "Log Out",

@@ -10,6 +10,7 @@ import { Signup } from "./routes/signup";
 import { UserProvider } from "./userContext";
 import { TestPage } from "./routes/testpage";
 import { profileLoader, UserProfile } from "./routes/user";
+import { Maps } from "./routes/maps";
 
 const router = createBrowserRouter([
     {
@@ -33,9 +34,13 @@ const router = createBrowserRouter([
                 element: <TestPage />,
             },
             {
-                path: "/user/:username",
+                path: "/users/:username",
                 element: <UserProfile />,
                 loader: profileLoader,
+            },
+            {
+                path: "/maps",
+                element: <Maps />,
             },
         ],
     },

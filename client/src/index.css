@@ -7,6 +7,8 @@ html {
     --border-color-dark: #7e7e7e;
     --link-color: #6c80db;
     --link-visited-color: #9d6cdd;
+    --success-color: limegreen;
+    --error-color: red;
 }
 
 body {

@@ -7,7 +7,7 @@ import { passportRouter, setupPassport } from "./src/auth";
 import expressSession from "express-session";
 import SQLiteStoreFn from "connect-sqlite3";
 import passport from "passport";
-import { getAPIRouter } from "./src/routes/api";
+import { getAPIRouter } from "./src/routes/api/api";
 
 dotenv.config();
 

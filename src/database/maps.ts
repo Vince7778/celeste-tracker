@@ -23,3 +23,17 @@ export async function getMapList(): Promise<SQLMapSummary[]> {
     `);
     return rows;
 }
+
+interface SQLMapData {
+    name: string;
+    gb_mod_id: string;
+}
+
+// Add a map to the database
+export async function addMap(mapData: SQLMapData) {
+    const db = getDatabase();
+    await db.run(`INSERT INTO celeste_maps(name, gb_mod_id) VALUES (?, ?)`, [
+        mapData.name,
+        mapData.gb_mod_id,
+    ]);
+}

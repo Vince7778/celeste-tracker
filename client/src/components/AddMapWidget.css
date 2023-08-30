@@ -1,0 +1,7 @@
+.error-div {
+    color: var(--error-color);
+}
+
+.success-div {
+    color: var(--success-color);
+}

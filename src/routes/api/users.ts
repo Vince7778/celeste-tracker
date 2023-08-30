@@ -1,10 +1,9 @@
 import { Router } from "express";
-import { getUserProfile } from "../database/users";
-import { getMapList } from "../database/maps";
+import { getUserProfile } from "../../database/users";
 
 const router = Router();
 
-router.get("/thisuser", (req, res) => {
+router.get("/me", (req, res) => {
     if (!req.user) {
         return res.json({ loggedIn: false });
     }
@@ -18,7 +17,7 @@ router.get("/thisuser", (req, res) => {
     });
 });
 
-router.get("/userinfo", async (req, res) => {
+router.get("/", async (req, res) => {
     const username = req.query.username;
     if (!username) {
         return res.status(400).json({ error: "No username provided" });
@@ -32,12 +31,4 @@ router.get("/userinfo", async (req, res) => {
     return res.json(userProfile);
 });
 
-router.get("/maplist", async (req, res) => {
-    const mapList = await getMapList();
-
-    return res.json(mapList);
-});
-
-export function getAPIRouter() {
-    return router;
-}
+export default router;

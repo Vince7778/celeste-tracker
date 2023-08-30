@@ -1,0 +1,12 @@
+.header-link {
+    height: 100%;
+    display: flex;
+    align-items: center;
+    border-bottom: 2px solid transparent;
+    font-size: 1.2em;
+    margin-left: 30px;
+}
+
+.header-link.active {
+    border-bottom: 2px solid var(--border-color);
+}

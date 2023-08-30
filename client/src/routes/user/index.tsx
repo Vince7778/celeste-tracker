@@ -10,7 +10,7 @@ import {
 
 export async function profileLoader({ params }: LoaderFunctionArgs) {
     if (!params.username) {
-        return redirect("/user/me");
+        return redirect("/users/me");
     }
     if (params.username === "me") {
         return "me";
@@ -31,7 +31,7 @@ export function UserProfile() {
         if (userProfile === "me") {
             if (userInfo) {
                 if (userInfo.loggedIn) {
-                    return navigate(`/user/${userInfo.username}`);
+                    return navigate(`/users/${userInfo.username}`);
                 }
                 return navigate("/login");
             }

@@ -1,5 +1,5 @@
 export async function getThisUser(callback?: (res: APIUserInfo) => void) {
-    const res = await fetch("/api/thisuser");
+    const res = await fetch("/api/users/me");
     const userJSON: APIUserInfo = await res.json();
     if (callback) callback(userJSON);
     return userJSON;
@@ -13,7 +13,7 @@ export async function logoutUser() {
 }
 
 export async function getProfile(username: string) {
-    const res = await fetch(`/api/userinfo?username=${username}`);
+    const res = await fetch(`/api/users?username=${username}`);
     if (res.status === 404) {
         return null;
     }

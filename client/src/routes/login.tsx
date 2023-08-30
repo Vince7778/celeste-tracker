@@ -2,51 +2,31 @@ import { Link, useNavigate, useSearchParams } from "react-router-dom";
 import "./login.css";
 import { useContext } from "react";
 import { UserContext } from "../userContext";
+import { HTMLForm } from "../components/HTMLForm";
 
 export function Login() {
     const navigate = useNavigate();
     const [searchParams] = useSearchParams();
     const userInfoCtx = useContext(UserContext);
 
-    async function handleSubmit(e: React.FormEvent<HTMLFormElement>) {
-        e.preventDefault();
-        const form = e.currentTarget;
-        const data = new FormData(form);
-        const username = data.get("username") as string;
-        const password = data.get("password") as string;
-
-        const myParams = new URLSearchParams({
-            username,
-            password,
-        });
-
-        const res = await fetch(form.action, {
-            method: form.method,
-            body: myParams,
-            headers: {
-                "Content-Type":
-                    "application/x-www-form-urlencoded;charset=UTF-8",
-            },
-        });
-
-        if (res.ok) {
-            if (searchParams.has("redirect")) {
-                userInfoCtx.relogin();
-                navigate(searchParams.get("redirect")!);
-            } else {
-                navigate("/");
-            }
+    function onSuccess() {
+        if (searchParams.has("redirect")) {
+            userInfoCtx.relogin();
+            navigate(searchParams.get("redirect")!);
+        } else {
+            navigate("/");
         }
     }
 
     return (
         <>
             <h2>Sign in</h2>
-            <form
+            <HTMLForm
                 action="/login/password"
                 method="post"
                 style={{ marginBottom: "10px" }}
-                onSubmit={handleSubmit}
+                onSuccess={onSuccess}
+                ignoreResponseData
             >
                 <section>
                     <label htmlFor="username">Username</label>
@@ -70,7 +50,7 @@ export function Login() {
                     />
                 </section>
                 <button type="submit">Sign in</button>
-            </form>
+            </HTMLForm>
             <Link to="/signup">Sign up</Link>
         </>
     );
