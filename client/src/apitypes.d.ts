@@ -23,3 +23,10 @@ interface APIRole {
     name: string;
     display_name?: string;
 }
+
+interface APIMapSummary {
+    id: number;
+    name: string;
+    num_chapters: number;
+    gb_mod_id: string;
+}
