@@ -28,5 +28,6 @@ interface APIMapSummary {
     id: number;
     name: string;
     num_chapters: number;
-    gb_mod_id: string;
+    gb_mod_id?: string;
+    preview_image_url?: string;
 }

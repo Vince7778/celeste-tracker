@@ -1,4 +1,6 @@
 {
-    "version": 2,
-    "updates": {}
+    "version": 3,
+    "updates": {
+        "2": "v2-v3.sql"
+    }
 }

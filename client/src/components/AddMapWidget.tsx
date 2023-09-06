@@ -4,7 +4,12 @@ import { useState } from "react";
 import { HTMLForm } from "./HTMLForm";
 import "./AddMapWidget.css";
 
-export function AddMapWidget() {
+// onAddMap: callback when a map is successfully added
+interface AddMapWidgetProps {
+    onAddMap?: () => void;
+}
+
+export function AddMapWidget({ onAddMap }: AddMapWidgetProps) {
     // TODO: Automatically fetch information from GameBanana
     const [errorMessage, setErrorMessage] = useState<string | null>(null);
     const [didSucceed, setDidSucceed] = useState(false);
@@ -15,6 +20,7 @@ export function AddMapWidget() {
 
     function onSuccess() {
         setDidSucceed(true);
+        onAddMap?.();
     }
 
     const errorDiv = errorMessage ? (
@@ -38,10 +44,6 @@ export function AddMapWidget() {
                 onSuccess={onSuccess}
                 beforeSubmit={beforeSubmit}
             >
-                <section>
-                    <label htmlFor="name">Map Name</label>
-                    <input id="name" type="text" name="name" required />
-                </section>
                 <section>
                     <label htmlFor="gblink">
                         <a href="https://gamebanana.com/games/6460">

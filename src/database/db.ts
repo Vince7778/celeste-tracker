@@ -9,6 +9,18 @@ const SCHEMA_PATH = "src/sql/schema.sql";
 
 let db: Database | null;
 
+export async function runSQLFile(curdb: Database, path: string) {
+    let schema: Buffer;
+    try {
+        schema = await fs.promises.readFile(path);
+    } catch (e) {
+        console.log("Error reading schema file!");
+        throw e;
+    }
+
+    await curdb.exec(schema.toString());
+}
+
 async function loadDatabase() {
     const dbPath = process.env.DATABASE_FILE;
     if (!dbPath) throw new Error(".env does not have key DATABASE_FILE");
@@ -38,15 +50,7 @@ async function loadDatabase() {
         });
 
         // load schema
-        let schema: Buffer;
-        try {
-            schema = await fs.promises.readFile(SCHEMA_PATH);
-        } catch (e) {
-            console.log("Error reading schema file!");
-            throw e;
-        }
-
-        await curdb.exec(schema.toString());
+        runSQLFile(curdb, SCHEMA_PATH);
 
         console.log("Schema loaded");
 

@@ -1,6 +1,11 @@
 .map-container {
     border: 1px solid var(--border-color);
+    border-radius: 3px;
     padding: 5px;
     margin: 0px 5px 5px 0px;
     width: auto;
+}
+
+.map-image {
+    border: 1px solid var(--border-color-dark);
 }

@@ -7,12 +7,23 @@ interface MapProps {
 }
 
 export function Map({ map }: MapProps) {
-    const gbLink = `https://gamebanana.com/mods/${map.gb_mod_id}`;
+    const gbLink = map.gb_mod_id
+        ? `https://gamebanana.com/mods/${map.gb_mod_id}`
+        : null;
+
+    const imageElem = map.preview_image_url ? (
+        <img
+            src={map.preview_image_url}
+            className="map-image"
+            alt={`Thumbnail for map ${map.name}`}
+        />
+    ) : null;
 
     // TODO: redirect to map page
     return (
         <div className="map-container">
-            <a href={gbLink}>{map.name}</a>
+            <div>{gbLink ? <a href={gbLink}>{imageElem}</a> : imageElem}</div>
+            <div>{gbLink ? <a href={gbLink}>{map.name}</a> : map.name}</div>
             <div>{map.num_chapters} chapters</div>
         </div>
     );

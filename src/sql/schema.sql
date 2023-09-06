@@ -35,7 +35,9 @@ CREATE TABLE user_roles (
 CREATE TABLE celeste_maps (
     id INTEGER PRIMARY KEY,
     name TEXT NOT NULL,
-    gb_mod_id TEXT UNIQUE -- mod id on GameBanana
+    gb_mod_id TEXT UNIQUE, -- mod id on GameBanana
+    preview_image_url TEXT,
+    last_updated TEXT NOT NULL -- when the map data was last updated
 );
 
 CREATE TABLE celeste_map_chapters (
@@ -48,4 +50,4 @@ CREATE TABLE celeste_map_chapters (
 -- create roles
 INSERT INTO roles(name, display_name) VALUES ('admin', 'Administrator');
 
-PRAGMA user_version = 2;
+PRAGMA user_version = 3;

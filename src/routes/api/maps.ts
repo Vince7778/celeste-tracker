@@ -1,5 +1,6 @@
 import { Router } from "express";
 import { addMap, getMapList } from "../../database/maps";
+import { getMapData } from "../../gamebanana";
 
 const router = Router();
 
@@ -17,9 +18,9 @@ interface AddRequest {
 
 router.post("/add", async (req, res) => {
     // get name and link fields from the request
-    const { name, gblink } = req.body as AddRequest;
+    const { gblink } = req.body as AddRequest;
 
-    if (!name || !gblink) {
+    if (!gblink) {
         return res.status(400).json({ error: "Missing fields" });
     }
 
@@ -32,13 +33,19 @@ router.post("/add", async (req, res) => {
     }
 
     const mapID = mapMatch[1];
-
-    // TODO: verify that this is an actual map
-
-    // TODO: automatically get name
+    const mapData = await getMapData(mapID);
+    if (!mapData.success) {
+        return res.status(400).json({ error: mapData.error });
+    }
 
     // insert map into db
-    await addMap({ name, gb_mod_id: mapID });
+    const lastUpdated = new Date().toISOString();
+    await addMap({
+        name: mapData.data.name,
+        gb_mod_id: mapID,
+        last_updated: lastUpdated,
+        preview_image_url: mapData.data.previewImageURL,
+    });
 
     return res.status(200).json({ success: true });
 });
