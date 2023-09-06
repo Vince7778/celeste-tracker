@@ -1,4 +1,4 @@
-import { Router } from "express";
+import { Request, Response, Router } from "express";
 import { addMap, getMapList } from "../../database/maps";
 import { getMapData } from "../../gamebanana";
 
@@ -16,7 +16,7 @@ interface AddRequest {
     gblink: string;
 }
 
-router.post("/add", async (req, res) => {
+export async function addMapAPI(req: Request, res: Response) {
     // get name and link fields from the request
     const { gblink } = req.body as AddRequest;
 
@@ -48,6 +48,8 @@ router.post("/add", async (req, res) => {
     });
 
     return res.status(200).json({ success: true });
-});
+}
+
+router.post("/add", addMapAPI);
 
 export default router;
