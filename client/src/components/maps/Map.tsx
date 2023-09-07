@@ -24,7 +24,9 @@ export function Map({ map }: MapProps) {
         <div className="map-container">
             <div>{gbLink ? <a href={gbLink}>{imageElem}</a> : imageElem}</div>
             <div>{gbLink ? <a href={gbLink}>{map.name}</a> : map.name}</div>
-            <div>{map.num_chapters} chapters</div>
+            <div>
+                {map.num_chapters} chapter{map.num_chapters !== 1 && "s"}
+            </div>
         </div>
     );
 }
